@@ -7,7 +7,7 @@ import pers.gene.bean.User;
 import pers.gene.main.SignupSignin;
 
 public interface UserDao {
-	static final Properties prop = SignupSignin.getProperties();
+	static final Properties prop = SignupSignin.prop;
 	
 	/**
 	 * 数据库 新增用户
