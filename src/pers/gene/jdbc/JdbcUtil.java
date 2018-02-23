@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;  
 import java.sql.ResultSet;  
 import java.sql.ResultSetMetaData;  
-import java.sql.SQLException;  
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;  
 import java.util.HashMap;  
 import java.util.List;  
@@ -38,27 +39,48 @@ public class JdbcUtil {
     
     public static String DRIVER = "com.mysql.jdbc.Driver";
 
-    public Connection connection;
-  
+    public Connection connection = null;
+    
+    public Statement stmt = null;
+
     public PreparedStatement pstmt;
 
     public ResultSet resultSet;
     
     public JdbcUtil() {  
-  
-    }  
+    	getConnection();
+    }
 
     public Connection getConnection() {
         try {  
             Class.forName(DRIVER).newInstance();
             String url = "jdbc:mysql://" + ip +":" + port + "/" + dbName + "?useUnicode=true&autoReconnect=true&characterEncoding=gbk";
             connection = DriverManager.getConnection(url, username, password);
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("show tables;");
+            List<String> nameList = new ArrayList<String>();
+            while(rs.next()) {
+            	nameList.add(rs.getString("ename"));
+            }
+            if(!nameList.contains("user")) {
+            	//创建表
+            	String sql = "CREATE TABLE user " +
+                        "(id INTEGER not NULL, " +
+                        " first VARCHAR(255), " + 
+                        " last VARCHAR(255), " + 
+                        " age INTEGER, " + 
+                        " PRIMARY KEY ( id ))";
+            	stmt.executeUpdate(sql);
+            }
         } catch (Exception e) {  
             throw new RuntimeException("get connection error!", e);  
         }
         return connection;
     }
 
+    public void createTable() {
+    	
+    }
     /**
      * ִ�и��²���
      
