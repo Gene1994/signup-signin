@@ -16,11 +16,11 @@ import java.util.Properties;
 import pers.gene.main.SignupSignin;  
 
 /**
- * <p>Title: JdbcUtil<��p>
- * <p>Description: JDBC������<��p>
+ * <p>Title: JdbcUtil<锟斤拷p>
+ * <p>Description: JDBC锟斤拷锟斤拷锟斤拷<锟斤拷p>
  * @author gene1994
  *
- * 2017��11��15��
+ * 2017锟斤拷11锟斤拷15锟斤拷
  */
 
   
@@ -48,12 +48,15 @@ public class JdbcUtil {
     public ResultSet resultSet;
     
     public JdbcUtil() {  
-    	getConnection();
+    	init();
     }
 
-    public Connection getConnection() {
+    public Connection init() {
         try {  
             Class.forName(DRIVER).newInstance();
+//          连接MySql数据库：Connection conn = DriverManager.getConnection("jdbc:mysql://host:port/database", "user", "password");
+//          连接Oracle数据库：Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@host:port:database", "user", "password");
+//          连接SqlServer数据库：Connection conn = DriverManager.getConnection("jdbc:microsoft:sqlserver://host:port; DatabaseName=database", "user", "password");
             String url = "jdbc:mysql://" + ip +":" + port + "/" + dbName + "?useUnicode=true&autoReconnect=true&characterEncoding=gbk";
             connection = DriverManager.getConnection(url, username, password);
             stmt = connection.createStatement();
@@ -63,12 +66,11 @@ public class JdbcUtil {
             	nameList.add(rs.getString("ename"));
             }
             if(!nameList.contains("user")) {
-            	//创建表
             	String sql = "CREATE TABLE user " +
                         "(id INTEGER not NULL, " +
-                        " first VARCHAR(255), " + 
-                        " last VARCHAR(255), " + 
-                        " age INTEGER, " + 
+                        " username VARCHAR(255), " + 
+                        " password VARCHAR(255), " + 
+                        " cellphone CHAR(11), " + 
                         " PRIMARY KEY ( id ))";
             	stmt.executeUpdate(sql);
             }
@@ -82,21 +84,21 @@ public class JdbcUtil {
     	
     }
     /**
-     * ִ�и��²���
+     * 执锟叫革拷锟铰诧拷锟斤拷
      
      * @param sql
-     *            sql���
+     *            sql锟斤拷锟�
      * @param params
-     *            ִ�в���
-     * @return ִ�н��
+     *            执锟叫诧拷锟斤拷
+     * @return 执锟叫斤拷锟�
      * @throws SQLException
      */
     public boolean updateByPreparedStatement(String sql, List<?> params) throws SQLException {
         boolean flag = false;
-        int result = -1;// ��ʾ���û�ִ�����ɾ�����޸ĵ�ʱ����Ӱ�����ݿ������
+        int result = -1;// 锟斤拷示锟斤拷锟矫伙拷执锟斤拷锟斤拷锟缴撅拷锟斤拷锟斤拷薷牡锟绞憋拷锟斤拷锟接帮拷锟斤拷锟斤拷菘锟斤拷锟斤拷锟斤拷
         pstmt = connection.prepareStatement(sql);
         int index = 1;
-        // ���sql����е�ռλ��
+        // 锟斤拷锟絪ql锟斤拷锟斤拷械锟秸嘉伙拷锟�
         if (params != null && !params.isEmpty()) {
             for (int i = 0; i < params.size(); i++) {
                 pstmt.setObject(index++, params.get(i));
@@ -108,12 +110,12 @@ public class JdbcUtil {
     }
   
     /** 
-     * ִ�в�ѯ���� 
+     * 执锟叫诧拷询锟斤拷锟斤拷 
      *  
      * @param sql 
-     *            sql��� 
+     *            sql锟斤拷锟� 
      * @param params 
-     *            ִ�в��� 
+     *            执锟叫诧拷锟斤拷 
      * @return 
      * @throws SQLException 
      */  
@@ -129,7 +131,7 @@ public class JdbcUtil {
         }
         resultSet = pstmt.executeQuery();
         ResultSetMetaData metaData = resultSet.getMetaData();  
-        int cols_len = metaData.getColumnCount();  //��ȡ����
+        int cols_len = metaData.getColumnCount();  //锟斤拷取锟斤拷锟斤拷
         while (resultSet.next()) {  
             Map<String, Object> map = new HashMap<String, Object>();  
             for (int i = 0; i < cols_len; i++) {  
@@ -146,7 +148,7 @@ public class JdbcUtil {
     }  
   
     /** 
-     * �ͷ���Դ 
+     * 锟酵凤拷锟斤拷源 
      */  
     public void releaseConn() {  
         if (resultSet != null) {

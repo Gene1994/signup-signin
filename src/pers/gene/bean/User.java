@@ -7,9 +7,9 @@ public class User implements Serializable{
 	private int id;
 	private String userName;
 	private String password;
-	private String rpsw;//repeat password ç¡®è®¤å¯†ç ï¼Œæ³¨å†Œæ—¶ç”¨
-	private String verifyCode;//éªŒè¯ç 
-	private boolean repeatable;//ç”¨æˆ·åæ˜¯å¦å¯é‡å¤
+	private String rpsw;//repeat passwordÈ·ÈÏÃÜÂë
+	private String verifyCode;//ÑéÖ¤Âë
+	private boolean repeatable;//ÉèÖÃÓÃ»§ÃûÊÇ·ñ¿ÉÒÔÖØ¸´
 	public String getUserName() {
 		return userName;
 	}

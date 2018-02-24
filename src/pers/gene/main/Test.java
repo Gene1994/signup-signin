@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import pers.gene.jdbc.JdbcUtil;
 
-public class Tset {
+public class Test {
 	public static Properties prop = SignupSignin.prop;
 	public static void main(String[] args) throws IOException {
 //		// TODO Auto-generated method stub
