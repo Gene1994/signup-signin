@@ -1,6 +1,7 @@
 package pers.gene.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import pers.gene.bean.User;
@@ -8,7 +9,7 @@ import pers.gene.main.SignupSignin;
 
 public interface UserDao {
 	static final Properties prop = SignupSignin.prop;
-	
+
 	/**
 	 * 数据库 新增用户
 	 * @param user
@@ -39,6 +40,14 @@ public interface UserDao {
 	 * @throws Exception
 	 */
 	public abstract User findById(int id) throws Exception;
+	
+	/**
+	 * 数据库 根据用户名查找
+	 * @param userName
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract User findByUserName(String userName) throws Exception;
 	
 	
 	/**

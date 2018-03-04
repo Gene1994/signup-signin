@@ -11,16 +11,9 @@ import pers.gene.jdbc.JdbcUtil;
 public class Test {
 	public static Properties prop = SignupSignin.prop;
 	public static void main(String[] args) throws IOException {
-//		// TODO Auto-generated method stub
-////		InputStream inStream = JdbcUtil.class.getResourceAsStream("/resources/jdbc.properties");
-//		setIp("aaa");
-////		prop.load(inStream);
-////        System.out.println(prop.getProperty("server.ip")+"1");
-//		JdbcUtil a = new JdbcUtil();
-//		System.out.println(a.ip);
-		List a = new ArrayList();
-		a.add("1");
-		System.out.println(a.contains("1"));
+		SignupSignin.setServerProperties("localhost", 3306, "user");
+		SignupSignin.setDBProperties("root", "password");
+		JdbcUtil d = new JdbcUtil();
 	}
 	public static void setIp(String ip) {
 		try {

@@ -9,7 +9,7 @@ public class SignupSignin {
 	public static Properties prop = new Properties();
 	
 	/**
-	 * ÉèÖÃ·şÎñÆ÷ÊôĞÔ£¬IP¡¢¶Ë¿Ú¡¢Êı¾İ¿âÃû
+	 * è®¾ç½®æœåŠ¡å™¨ä¿¡æ¯
 	 * @param ip
 	 * @param port
 	 * @param dbName
@@ -21,12 +21,19 @@ public class SignupSignin {
 	}
 	
 	/**
-	 * ÉèÖÃÊı¾İ¿âÊôĞÔ
+	 * è®¾ç½®æ•°æ®åº“ä¿¡æ¯
 	 * @param dbUserName(root)
 	 * @param dbPassword
 	 */
 	public static void setDBProperties(String dbUserName, String dbPassword) {
 		prop.setProperty("jdbc.username", dbUserName);
 		prop.setProperty("jdbc.password", dbPassword);
+	}
+	
+	/**
+	 * æ³¨å†Œ
+	 */
+	public static void signUp() {
+		
 	}
 }

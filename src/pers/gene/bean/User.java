@@ -4,12 +4,19 @@ import java.io.Serializable;
 
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private String id;
 	private String userName;
 	private String password;
-	private String rpsw;//repeat passwordÈ·ÈÏÃÜÂë
-	private String verifyCode;//ÑéÖ¤Âë
-	private boolean repeatable;//ÉèÖÃÓÃ»§ÃûÊÇ·ñ¿ÉÒÔÖØ¸´
+	private String cellphone;
+//	private String rpsw;//repeat passwordè¿™ä¸ªä¸åº”è¯¥æ˜¯userçš„å±æ€§
+//	private String verifyCode; è¿™ä¸ªä¸åº”è¯¥æ˜¯userçš„å±æ€§
+	
+	public User(String id, String userName, String password, String cellphone) {
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.cellphone = cellphone;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -22,29 +29,18 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRpsw() {
-		return rpsw;
-	}
-	public void setRpsw(String rpsw) {
-		this.rpsw = rpsw;
-	}
-	public String getVerifyCode() {
-		return verifyCode;
-	}
-	public void setVerifyCode(String verifyCode) {
-		this.verifyCode = verifyCode;
-	}
-	public boolean isRepeatable() {
-		return repeatable;
-	}
-	public void setRepeatable(boolean repeatable) {
-		this.repeatable = repeatable;
-	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
+	public String getCellphone() {
+		return cellphone;
+	}
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
+	
 	
 }

@@ -51,54 +51,65 @@ public class JdbcUtil {
     	init();
     }
 
+    /**
+     * 链接数据库、名为user，创建表、名为uesr。
+     * user表中参数为：id、username、password、cellphone
+     * @return
+     */
     public Connection init() {
         try {  
             Class.forName(DRIVER).newInstance();
 //          连接MySql数据库：Connection conn = DriverManager.getConnection("jdbc:mysql://host:port/database", "user", "password");
 //          连接Oracle数据库：Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@host:port:database", "user", "password");
 //          连接SqlServer数据库：Connection conn = DriverManager.getConnection("jdbc:microsoft:sqlserver://host:port; DatabaseName=database", "user", "password");
-            String url = "jdbc:mysql://" + ip +":" + port + "/" + dbName + "?useUnicode=true&autoReconnect=true&characterEncoding=gbk";
+//            String url = "jdbc:mysql://" + ip +":" + port + "/jsp_db?useSSL=false," + dbName + "?useUnicode=true&autoReconnect=true&characterEncoding=gbk";
+            String url = "jdbc:mysql://" + ip +":" + port + "/user?useSSL=false";
             connection = DriverManager.getConnection(url, username, password);
             stmt = connection.createStatement();
+            //创建数据库user
+            String sql_createDB = "CREATE DATABASE IF NOT EXISTS USER DEFAULT CHARSET utf8 COLLATE utf8_general_ci";
+            stmt.executeUpdate(sql_createDB);
+            
+            //如果数据库中没有表user创建user
             ResultSet rs = stmt.executeQuery("show tables;");
             List<String> nameList = new ArrayList<String>();
             while(rs.next()) {
-            	nameList.add(rs.getString("ename"));
+            	nameList.add(rs.getString("Tables_in_user"));
             }
             if(!nameList.contains("user")) {
-            	String sql = "CREATE TABLE user " +
-                        "(id INTEGER not NULL, " +
-                        " username VARCHAR(255), " + 
-                        " password VARCHAR(255), " + 
-                        " cellphone CHAR(11), " + 
-                        " PRIMARY KEY ( id ))";
-            	stmt.executeUpdate(sql);
+            	createTable();
             }
+//            else {
+//            	System.out.println("alaready exist");
+//            }
         } catch (Exception e) {  
-            throw new RuntimeException("get connection error!", e);  
+//            System.out.println("Error when init datdabase");
         }
         return connection;
     }
 
-    public void createTable() {
-    	
+    public void createTable() throws SQLException {
+    	String sql = "CREATE TABLE user " +
+                "(id INTEGER not NULL, " +
+                " username VARCHAR(255), " + 
+                " password VARCHAR(255), " + 
+                " cellphone CHAR(11), " + 
+                " PRIMARY KEY ( id ))";
+    	stmt.executeUpdate(sql);
     }
+
     /**
-     * 执锟叫革拷锟铰诧拷锟斤拷
-     
+     * 执行更新
      * @param sql
-     *            sql锟斤拷锟�
      * @param params
-     *            执锟叫诧拷锟斤拷
-     * @return 执锟叫斤拷锟�
+     * @return
      * @throws SQLException
      */
     public boolean updateByPreparedStatement(String sql, List<?> params) throws SQLException {
         boolean flag = false;
-        int result = -1;// 锟斤拷示锟斤拷锟矫伙拷执锟斤拷锟斤拷锟缴撅拷锟斤拷锟斤拷薷牡锟绞憋拷锟斤拷锟接帮拷锟斤拷锟斤拷菘锟斤拷锟斤拷锟斤拷
+        int result = -1;
         pstmt = connection.prepareStatement(sql);
         int index = 1;
-        // 锟斤拷锟絪ql锟斤拷锟斤拷械锟秸嘉伙拷锟�
         if (params != null && !params.isEmpty()) {
             for (int i = 0; i < params.size(); i++) {
                 pstmt.setObject(index++, params.get(i));
@@ -109,16 +120,14 @@ public class JdbcUtil {
         return flag;
     }
   
-    /** 
-     * 执锟叫诧拷询锟斤拷锟斤拷 
-     *  
-     * @param sql 
-     *            sql锟斤拷锟� 
-     * @param params 
-     *            执锟叫诧拷锟斤拷 
-     * @return 
-     * @throws SQLException 
-     */  
+
+    /**
+     * 查找
+     * @param sql
+     * @param params
+     * @return
+     * @throws SQLException
+     */
     public List<Map<String, Object>> findResult(String sql, List<?> params)
             throws SQLException {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -148,7 +157,7 @@ public class JdbcUtil {
     }  
   
     /** 
-     * 锟酵凤拷锟斤拷源 
+     * 释放资源
      */  
     public void releaseConn() {  
         if (resultSet != null) {
