@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import pers.gene.bean.User;
-import pers.gene.main.SignupSignin;
+import pers.gene.main.SignUtil;
 
 public interface UserDao {
-	static final Properties prop = SignupSignin.prop;
+	static final Properties prop = SignUtil.prop;
 
 	/**
 	 * 数据库 新增用户

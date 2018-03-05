@@ -9,10 +9,10 @@ import java.util.Properties;
 import pers.gene.jdbc.JdbcUtil;
 
 public class Test {
-	public static Properties prop = SignupSignin.prop;
+	public static Properties prop = SignUtil.prop;
 	public static void main(String[] args) throws IOException {
-		SignupSignin.setServerProperties("localhost", 3306, "user");
-		SignupSignin.setDBProperties("root", "password");
+		SignUtil.setServerProperties("localhost", 3306, "aaa");
+		SignUtil.setDBProperties("root", "password");
 		JdbcUtil d = new JdbcUtil();
 	}
 	public static void setIp(String ip) {

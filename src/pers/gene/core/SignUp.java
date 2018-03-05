@@ -5,9 +5,13 @@ import pers.gene.dao.UserDaoImpl;
 
 public class SignUp {
 	User user;
-	UserDaoImpl udi = new UserDaoImpl();
 	private String rpsw;//校验密码
 	private String verifyCode;
+	UserDaoImpl udi = new UserDaoImpl();
+	
+	public SignUp(User user){
+		this.user = user;
+	}
 	
 	/**
 	 * 添加用户
@@ -48,12 +52,14 @@ public class SignUp {
 	 * @param password
 	 * @return
 	 */
-	public boolean checkPassword(String password) {
+	public boolean checkPassword(String rpsw) {
+		if(user.getPassword() == rpsw) return true;
 		return false;
 	}
 	
 	
 	public boolean checkVertifyCode(String vertifyCode) {
-		return false;
+		return true;
+//		return false;
 	}
 }
